@@ -26,11 +26,12 @@
                             <th>Kelas</th>
                             <th>Aksi</th>
                         </tr>
+                        @foreach($dataMahasiswa as $index => $mahasiswa)
                         <tr>
-                            <td>1</td>
-                            <td>Rizky Wahyu Prasetiyo</td>
-                            <td>171220372</td>
-                            <td>04</td>
+                            <td>{{ ++$index }}</td>
+                            <td>{{ $mahasiswa->nama }}</td>
+                            <td>{{ $mahasiswa->nim }}</td>
+                            <td>{{ $mahasiswa->kelas }}</td>
                             <td>
                                 <div>
                                     <a href="#" class="btn btn-success btn-sm">Edit</a>
@@ -42,22 +43,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Dani Firmansyah</td>
-                            <td>171220375</td>
-                            <td>04</td>
-                            <td>
-                                <div>
-                                    <a href="#" class="btn btn-success btn-sm">Edit</a>
-                                    <form action="#" method="post" class="d-inline">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
+                        @endforeach
                     </table>
                 </div>
             </div>

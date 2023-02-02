@@ -8,9 +8,11 @@ use App\Http\Requests\MahasiswaRequest;
 
 class MahasiswaController extends Controller
 {
-    public function index()
+    public function index(Mahasiswa $mahasiswa)
     {
-        return view('index');
+        $dataMahasiswa = $mahasiswa->get();
+
+        return view('index', compact('dataMahasiswa'));
     }
 
     public function tambah()

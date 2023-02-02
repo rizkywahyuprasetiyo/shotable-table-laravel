@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('nim');
             $table->string('kelas');
+            $table->integer('index');
             $table->timestamps();
         });
     }

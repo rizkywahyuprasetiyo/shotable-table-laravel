@@ -10,4 +10,5 @@ Route::controller(MahasiswaController::class)->name('mahasiswa.')->group(functio
     Route::get('/mahasiswa/{mahasiswa}/edit', 'edit')->name('edit');
     Route::patch('/mahasiswa/{mahasiswa}/update', 'update')->name('update');
     Route::delete('/mahasiswa/{mahasiswa}/hapus', 'hapus')->name('hapus');
+    Route::patch('/mahasiswa/ubah-posisi', 'ubahPosisi')->name('ubahPosisi');
 });

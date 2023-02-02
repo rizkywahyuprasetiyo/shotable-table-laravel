@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Http\Requests\MahasiswaRequest;
+use App\Http\Requests\UrutanMahasiswaRequest;
 
 class MahasiswaController extends Controller
 {
     public function index(Mahasiswa $mahasiswa)
     {
-        $dataMahasiswa = $mahasiswa->get();
+        $dataMahasiswa = $mahasiswa->orderby('index', 'asc')->get();
 
         return view('index', compact('dataMahasiswa'));
     }
@@ -23,6 +24,14 @@ class MahasiswaController extends Controller
     public function simpan(Mahasiswa $mahasiswa, MahasiswaRequest $mahasiswaRequest)
     {
         $data = $mahasiswaRequest->validated();
+
+        // ambil data posisi terakhir
+        $dataPosisi = $mahasiswa->orderby('index', 'asc')->latest()->first();
+        if ($dataPosisi) {
+            $data['index'] = $dataPosisi->index + 1;
+        } else {
+            $data['index'] = 1;
+        }
 
         $mahasiswa->create($data);
 
@@ -48,5 +57,18 @@ class MahasiswaController extends Controller
         $mahasiswa->delete();
 
         return back()->with('berhasil', 'Data mahasiswa berhasil dihapus.');
+    }
+
+    public function ubahPosisi(Mahasiswa $mahasiswa, UrutanMahasiswaRequest $shortableMahasiswaRequest)
+    {
+        $data = $shortableMahasiswaRequest->validated();
+        $dataPosisi = $data['index'];
+
+        for ($index = 0; $index < count($dataPosisi); $index++) {
+            $dataMahasiswa = $mahasiswa->find($dataPosisi[$index]);
+            $dataMahasiswa->update(['index' => $index]);
+        }
+
+        return back()->with('berhasil', 'Data posisi berhasil disimpan.');
     }
 }

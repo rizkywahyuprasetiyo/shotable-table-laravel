@@ -10,44 +10,68 @@
             </div>
             @endif
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4>Data Mahasiswa</h4>
-                    <div>
-                        <a href="{{ route('mahasiswa.tambah') }}" class="btn btn-primary">Tambah</a>
-                        <a href="#" class="btn btn-secondary">Simpan Urutan</a>
+                <form action="{{ route('mahasiswa.ubahPosisi') }}" method="post">
+                    @csrf
+                    @method('patch')
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4>Data Mahasiswa</h4>
+                        <div>
+                            <a href="{{ route('mahasiswa.tambah') }}" class="btn btn-primary">Tambah</a>
+                            <button type="submit" class="btn btn-secondary">Simpan Urutan</button>
+                        </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <table class="table">
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>NIM</th>
-                            <th>Kelas</th>
-                            <th>Aksi</th>
-                        </tr>
-                        @foreach($dataMahasiswa as $index => $mahasiswa)
-                        <tr>
-                            <td>{{ ++$index }}</td>
-                            <td>{{ $mahasiswa->nama }}</td>
-                            <td>{{ $mahasiswa->nim }}</td>
-                            <td>{{ $mahasiswa->kelas }}</td>
-                            <td>
-                                <div>
-                                    <a href="{{ route('mahasiswa.edit', $mahasiswa->id) }}" class="btn btn-success btn-sm">Edit</a>
-                                    <form action="{{ route('mahasiswa.hapus', $mahasiswa->id) }}" method="post" class="d-inline" onsubmit="return confirm('Data akan dihapus. Lanjutkan?')">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </table>
-                </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>NIM</th>
+                                    <th>Kelas</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ayam">
+                                @foreach($dataMahasiswa as $index => $mahasiswa)
+                                <tr class="handle">
+                                    <input type="hidden" name="index[]" value="{{ $mahasiswa->id }}">
+                                    <td>{{ ++$index }}</td>
+                                    <td>{{ $mahasiswa->nama }}</td>
+                                    <td>{{ $mahasiswa->nim }}</td>
+                                    <td>{{ $mahasiswa->kelas }}</td>
+                                    <td>
+                                        <div>
+                                            <a href="{{ route('mahasiswa.edit', $mahasiswa->id) }}" class="btn btn-success btn-sm">Edit</a>
+                                            {{-- <form action="{{ route('mahasiswa.hapus', $mahasiswa->id) }}" method="post" class="d-inline" onsubmit="return confirm('Data akan dihapus. Lanjutkan?')">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                            </form> --}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
+@push('js')
+{{-- <script src="{{ asset('js/shortable.js') }}"></script> --}}
+{{-- <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script> --}}
+<script>
+    var el = document.getElementById('ayam');
+    new Sortable.create(el);
+    // function shortable(){
+    // // let player = document.getElementById("player-list");
+    // var el = document.getElementById('list-subTahapan');
+    // new Sortable.create(el);
+    // }
+    // shortable();
+</script>
+@endpush

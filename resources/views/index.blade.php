@@ -3,11 +3,17 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
+            @if(session()->has('berhasil'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Berhasil!</strong> {{ session()->get('berhasil') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4>Data Mahasiswa</h4>
                     <div>
-                        <a href="#" class="btn btn-primary">Tambah</a>
+                        <a href="{{ route('mahasiswa.tambah') }}" class="btn btn-primary">Tambah</a>
                         <a href="#" class="btn btn-secondary">Simpan Urutan</a>
                     </div>
                 </div>

@@ -35,7 +35,7 @@
                             <td>
                                 <div>
                                     <a href="{{ route('mahasiswa.edit', $mahasiswa->id) }}" class="btn btn-success btn-sm">Edit</a>
-                                    <form action="#" method="post" class="d-inline">
+                                    <form action="{{ route('mahasiswa.hapus', $mahasiswa->id) }}" method="post" class="d-inline" onsubmit="return confirm('Data akan dihapus. Lanjutkan?')">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-sm btn-danger">Hapus</button>

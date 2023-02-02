@@ -42,4 +42,11 @@ class MahasiswaController extends Controller
 
         return redirect(route('mahasiswa.index'))->with('berhasil', 'Data mahasiswa berhasil diperbaharui.');
     }
+
+    public function hapus(Mahasiswa $mahasiswa)
+    {
+        $mahasiswa->delete();
+
+        return back()->with('berhasil', 'Data mahasiswa berhasil dihapus.');
+    }
 }

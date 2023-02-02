@@ -34,7 +34,7 @@
                             <td>{{ $mahasiswa->kelas }}</td>
                             <td>
                                 <div>
-                                    <a href="#" class="btn btn-success btn-sm">Edit</a>
+                                    <a href="{{ route('mahasiswa.edit', $mahasiswa->id) }}" class="btn btn-success btn-sm">Edit</a>
                                     <form action="#" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')

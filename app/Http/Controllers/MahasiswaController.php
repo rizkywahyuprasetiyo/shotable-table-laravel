@@ -28,4 +28,18 @@ class MahasiswaController extends Controller
 
         return redirect(route('mahasiswa.index'))->with('berhasil', 'Data mahasiswa berhasil ditambahkan.');
     }
+
+    public function edit(Mahasiswa $mahasiswa)
+    {
+        return view('edit', compact('mahasiswa'));
+    }
+
+    public function update(Mahasiswa $mahasiswa, MahasiswaRequest $mahasiswaRequest)
+    {
+        $data = $mahasiswaRequest->validated();
+
+        $mahasiswa->update($data);
+
+        return redirect(route('mahasiswa.index'))->with('berhasil', 'Data mahasiswa berhasil diperbaharui.');
+    }
 }
